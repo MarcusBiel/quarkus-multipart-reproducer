@@ -18,7 +18,7 @@ public class ReproducerTask implements Runnable {
     @Transactional
     @ActivateRequestContext
     public void run() {
-        ///dO stuff
+        ///do stuff
     }
 
     public void setData(String data) {

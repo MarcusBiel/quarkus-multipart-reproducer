@@ -7,17 +7,16 @@
   <artifactId>multipart-reproducer</artifactId>
   <version>0.0.7-SNAPSHOT</version>
   <properties>
-    <quarkus-plugin.version>1.10.5.Final</quarkus-plugin.version>
-    <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
-    <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-    <quarkus.platform.version>1.10.5.Final</quarkus.platform.version>
-    <compiler-plugin.version>3.8.1</compiler-plugin.version>
-    <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <maven.compiler.source>15</maven.compiler.source>
-    <maven.compiler.target>15</maven.compiler.target>
+    <compiler-plugin.version>3.8.1</compiler-plugin.version>
+    <maven.compiler.release>16</maven.compiler.release>
     <maven.compiler.parameters>true</maven.compiler.parameters>
+    <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
+    <quarkus-plugin.version>2.1.1.Final</quarkus-plugin.version>
+    <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
+    <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
+    <quarkus.platform.version>2.1.1.Final</quarkus.platform.version>
   </properties>
 
   <dependencyManagement>
@@ -118,16 +117,24 @@
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-maven-plugin</artifactId>
         <version>${quarkus-plugin.version}</version>
+        <extensions>true</extensions>
         <executions>
           <execution>
             <goals>
               <goal>build</goal>
+              <goal>generate-code</goal>
+              <goal>generate-code-tests</goal>
             </goals>
-            <configuration>
-              <enableHttpUrlHandler>true</enableHttpUrlHandler>
-            </configuration>
           </execution>
         </executions>
+        <configuration>
+          <compilerArgs>
+            --add-opens=java.base/java.net=ALL-UNNAMED
+          </compilerArgs>
+          <jvmArgs>
+            --add-opens=java.base/java.net=ALL-UNNAMED
+          </jvmArgs>
+        </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
